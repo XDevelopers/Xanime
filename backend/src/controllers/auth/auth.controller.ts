@@ -769,3 +769,12 @@ return res.status(200).json({
     console.log("Chnage pass error",error)
   }
 }
+
+
+export const cat=async(req:Request,res:Response,next:NextFunction)=>{
+console.log("hello i am on admin login!")
+
+return res.status(200).json({
+  message:"Hello i Am Admin"
+})
+}

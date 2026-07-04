@@ -1,14 +1,15 @@
 import { Router } from "express";
-const Adminrouter = Router();
+import { verifyJWT } from "../../middleware/verifyJWT.js";
+import { verifyAdmin } from "../../middleware/verifyAdmin.js";
+import { cat } from "../../controllers/auth/auth.controller.js";
 
-Adminrouter.route("/login").post();
-Adminrouter.route("/regester").post();
-Adminrouter.route("/logout").post();
-Adminrouter.route("/addblog").post();
-Adminrouter.route("/editblog").post();
-Adminrouter.route("/addproduct").post();
-Adminrouter.route("/editproduct").post();
-Adminrouter.route("/deletuser").post();
+const AdminRouter = Router();
 
+AdminRouter.post(
+  "/category",
+  verifyJWT,//verify authentiated or not
+  verifyAdmin,//verify is admin or a noraml user
+  cat
+);
 
-export default Adminrouter 
+export default AdminRouter;
