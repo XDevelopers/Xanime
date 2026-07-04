@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 const ACCESS_TOKEN_SECRET = process.env.JWT_ACCESS_SECRET as string;
 const REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_SECRET as string;
 const VERIFY_EMAIL_SECRET = process.env.JWT_VERIFY_EMAIL_SECRET as string;
-
+const RESET_PASSWORD_SECRET=process.env.JWT_RESET_PASSWORD_SECRET as string
 export interface JwtPayload {
   id: number;
   email: string;
@@ -84,5 +84,31 @@ export const verifyVerificationToken = (
   return jwt.verify(
     token,
     VERIFY_EMAIL_SECRET
+  ) as JwtPayload;
+};
+
+/* ===========================
+   RESET PASSWORD TOKEN
+=========================== */
+
+export const generateResetPasswordToken = (
+  id: number,
+  email: string
+): string => {
+  return jwt.sign(
+    { id, email },
+    RESET_PASSWORD_SECRET,
+    {
+      expiresIn: "15m",
+    }
+  );
+};
+
+export const verifyResetPasswordToken = (
+  token: string
+): JwtPayload => {
+  return jwt.verify(
+    token,
+    RESET_PASSWORD_SECRET
   ) as JwtPayload;
 };
