@@ -11,6 +11,8 @@ export enum Gender {
 }
 
 
+
+
 export enum DeliveryStatus {
   Initiate = 301,
   MidPoint = 302,
@@ -50,4 +52,23 @@ export enum PaymentStatus {
 export enum PaymentMethod {
   COD = 801,
   UPI = 802,
+}
+
+
+export enum CategoryStatus {
+
+    Active = 901,
+
+    Inactive = 902
+
+}
+
+export enum BrandStatus{
+    Active=101,
+    Inactive=102
+}
+
+export enum anime_seriestatus{
+  Active=111,
+    Inactive=112
 }

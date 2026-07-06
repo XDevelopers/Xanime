@@ -21,7 +21,7 @@ export const generateAccessToken = (
     { id, email },
     ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "15m",
+      expiresIn: "50m",
     }
   );
 };

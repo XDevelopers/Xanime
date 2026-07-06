@@ -363,7 +363,7 @@ export const logout = async (
   }
 };
 
-export const refreshToken = async (
+export const refreshAccessToken = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -398,7 +398,7 @@ WHERE id=$1
     }
     const user = result.rows[0];
 
-    if (user.refresh_token !== refreshToken) {
+    if (user.refresh_token !== incomingRefreshToken) {
       return res.status(401).json({
         error: "Invalid Refresh Token",
       });

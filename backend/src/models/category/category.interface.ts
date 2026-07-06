@@ -1,0 +1,19 @@
+import { CategoryStatus } from "../../enum.js";
+
+export interface ICategory {
+  id: number;
+
+  name: string;
+
+  slug: string;
+
+  description: string;
+
+  display_order: number;
+
+  status: CategoryStatus;
+
+  created_at: Date;
+
+  updated_at: Date;
+}
