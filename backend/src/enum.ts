@@ -55,20 +55,15 @@ export enum PaymentMethod {
 }
 
 
-export enum CategoryStatus {
-
+export enum MasterStatus {
     Active = 901,
-
     Inactive = 902
-
 }
 
-export enum BrandStatus{
-    Active=101,
-    Inactive=102
-}
 
-export enum anime_seriestatus{
-  Active=111,
-    Inactive=112
+export enum ProductStatus {
+  Active = 911,
+  Inactive = 912,
+  OutOfStock = 913,
+  Draft = 914,
 }

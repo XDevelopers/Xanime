@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { slugify } from "../../utils/slug/slug.js";
 
 import pool from "../../db/db.js";
-import { anime_seriestatus } from "../../enum.js";
+import { MasterStatus } from "../../enum.js";
 
 
 /**
@@ -69,7 +69,7 @@ WHERE
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        anime_seriestatus.Active,
+        MasterStatus.Active,
       ],
     );
 
@@ -287,7 +287,7 @@ export const UpdateAnime_series = async (
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        status ?? anime_seriestatus.Active,
+        status ?? MasterStatus.Active,
         Number(id),
       ],
     );
@@ -347,7 +347,7 @@ export const deleteAnime_series = async (
     const Anime_series = existingAnime_series.rows[0];
 
     // Already Inactive
-    if (Anime_series.status === anime_seriestatus.Inactive) {
+    if (Anime_series.status === MasterStatus.Inactive) {
       return res.status(400).json({
         error: "Anime_series is already inactive.",
       });
@@ -372,7 +372,7 @@ export const deleteAnime_series = async (
         updated_at
       `,
       [
-        anime_seriestatus.Inactive,
+        MasterStatus.Inactive,
         Number(id),
       ]
     );

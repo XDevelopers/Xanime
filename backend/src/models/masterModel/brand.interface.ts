@@ -1,6 +1,6 @@
-import { CategoryStatus } from "../../enum.js";
+import { MasterStatus } from "../../enum.js";
 
-export interface ICategory {
+export interface IBrand {
   id: number;
 
   name: string;
@@ -11,7 +11,7 @@ export interface ICategory {
 
   display_order: number;
 
-  status: CategoryStatus;
+  status: MasterStatus;
 
   created_at: Date;
 

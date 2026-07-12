@@ -31,6 +31,7 @@ app.get("/", async (req, res) => {
 // Routes
 app.use("/api/v1/users", Userrouter);
 app.use("/api/v1/admin", AdminRouter)
+app.use("/uploads", express.static("uploads"));
 
 // Global Error Handler (Hamesha last me)
 app.use((err: any, req: any, res: any, next: any) => {

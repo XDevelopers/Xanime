@@ -5,6 +5,10 @@ import { cat } from "../../controllers/auth/auth.controller.js";
 import { createCategory ,deleteCategory,getAllCategories, getCategoryById, UpdateCategory} from "../../controllers/category/category.controller.js";
 import { createBrand, deleteBrand, getAllbrand, getBrandById, UpdateBrand } from "../../controllers/category/brand.controller.js";
 import { createAnime_series, deleteAnime_series, getAllAnime_series, getAnime_seriesById, UpdateAnime_series } from "../../controllers/category/anime_series.controller.js";
+import { createUnit, deleteUnit, getAllUnits, getUnitById, updateUnit } from "../../controllers/category/unit.controller.js";
+import multer from "multer";
+import { uploadProductImages } from "../../middleware/multer.js";
+import { CreateProduct } from "../../controllers/product/product.controller.js";
 
 const AdminRouter = Router();
 
@@ -119,4 +123,56 @@ AdminRouter.delete(
   verifyAdmin,
   deleteAnime_series
 );
+
+
+
+
+//units
+
+AdminRouter.post(
+  "/units",
+  verifyJWT,//verify authentiated or not
+  verifyAdmin,//verify is admin or a noraml user
+  createUnit
+);
+
+AdminRouter.get(
+  "/units",
+  verifyJWT,//verify authentiated or not
+  verifyAdmin,//verify is admin or a noraml user
+  getAllUnits
+);
+
+AdminRouter.get(
+  "/units/:id",
+  verifyJWT,
+  verifyAdmin,
+  getUnitById
+)
+
+AdminRouter.patch(
+  "/units/:id",
+  verifyJWT,
+  verifyAdmin,
+  updateUnit
+)
+
+AdminRouter.delete(
+  "/units/:id",
+  verifyJWT,
+  verifyAdmin,
+  deleteUnit
+);
+
+
+//Products
+
+AdminRouter.post(
+  "/products",
+  verifyJWT,
+  verifyAdmin,
+  uploadProductImages.array("images", 10),
+  CreateProduct
+);
+
 export default AdminRouter;

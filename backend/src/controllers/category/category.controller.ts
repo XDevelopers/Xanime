@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { slugify } from "../../utils/slug/slug.js";
 
 import pool from "../../db/db.js";
-import { CategoryStatus } from "../../enum.js";
+import { MasterStatus } from "../../enum.js";
 
 
 /**
@@ -69,7 +69,7 @@ WHERE
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        CategoryStatus.Active,
+        MasterStatus.Active,
       ],
     );
 
@@ -287,7 +287,7 @@ export const UpdateCategory = async (
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        status ?? CategoryStatus.Active,
+        status ?? MasterStatus.Active,
         Number(id),
       ],
     );
@@ -347,7 +347,7 @@ export const deleteCategory = async (
     const category = existingCategory.rows[0];
 
     // Already Inactive
-    if (category.status === CategoryStatus.Inactive) {
+    if (category.status === MasterStatus.Inactive) {
       return res.status(400).json({
         error: "Category is already inactive.",
       });
@@ -372,7 +372,7 @@ export const deleteCategory = async (
         updated_at
       `,
       [
-        CategoryStatus.Inactive,
+        MasterStatus.Inactive,
         Number(id),
       ]
     );

@@ -2,8 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { slugify } from "../../utils/slug/slug.js";
 
 import pool from "../../db/db.js";
-import { BrandStatus } from "../../enum.js";
-
+import { MasterStatus } from "../../enum.js";
 
 /**
  * @desc =Create Brand
@@ -69,7 +68,7 @@ WHERE
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        BrandStatus.Active,
+        MasterStatus.Active,
       ],
     );
 
@@ -287,7 +286,7 @@ export const UpdateBrand = async (
         slug,
         description?.trim() || null,
         display_order ?? 0,
-        status ?? BrandStatus.Active,
+        status ?? MasterStatus.Active,
         Number(id),
       ],
     );
@@ -314,7 +313,7 @@ export const UpdateBrand = async (
 export const deleteBrand = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { id } = req.params;
@@ -335,7 +334,7 @@ export const deleteBrand = async (
       FROM brands
       WHERE id = $1
       `,
-      [Number(id)]
+      [Number(id)],
     );
 
     if (existingBrand.rows.length === 0) {
@@ -347,7 +346,7 @@ export const deleteBrand = async (
     const Brand = existingBrand.rows[0];
 
     // Already Inactive
-    if (Brand.status === BrandStatus.Inactive) {
+    if (Brand.status === MasterStatus.Inactive) {
       return res.status(400).json({
         error: "Brand is already inactive.",
       });
@@ -371,17 +370,13 @@ export const deleteBrand = async (
         created_at,
         updated_at
       `,
-      [
-        BrandStatus.Inactive,
-        Number(id),
-      ]
+      [MasterStatus.Inactive, Number(id)],
     );
 
     return res.status(200).json({
       message: "Brand deactivated successfully.",
       Brand: result.rows[0],
     });
-
   } catch (error) {
     console.error("Delete Brand Error:", error);
 
